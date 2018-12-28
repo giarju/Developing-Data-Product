@@ -1,0 +1,65 @@
+---
+title: "Complex Function Plot"
+author: "Gian Arjuna"
+date: "December 24, 2018"
+output:
+  #slidy_presentation: default
+  ioslides_presentation: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(warn=-1)
+```
+
+##Complex Function Plot with plotly
+- In this slide we will plot a complex function using plotly library
+- The algorithm can plot function for power with natural numbers
+
+##Load Library and Create Data
+- The real domain of the function is between -10 and +10
+- The imaginary domain of the function is between -10i and +10i
+
+```{r, include = FALSE}
+library(plotly)
+```
+```{r}
+#create the domain
+x <- seq(-10,10, length = 21)
+iy <- seq(-10i,10i, length = 21)
+f <- function(x,iy){
+    z <- matrix(nrow = length(x), ncol = length(iy))
+    for(i in 1:length(x)){
+        for(j in 1:length(iy)){
+            z[i,j] <- x[i]+iy[j]
+        }
+    }
+    return(z)
+}
+z <- f(x,iy)
+``` 
+
+##Calculate The Function Output 
+- Next we create the function and calculate its output
+- Then we extract the real and imaginary part of the function
+- In the next slide the plot of the function will be shown
+```{r}
+#calculate the function
+fz <- z^4
+
+#extract the real and imaginary part of the function
+fx <- Re(fz)
+fiy <- Im(fz)
+```
+
+##Plot The Real Part of The Function
+```{r, echo = FALSE}
+plot_ly(z = fx, type = "surface")
+```
+
+##Plot The Imaginary Part of The Function
+```{r, echo = FALSE}
+plot_ly(z = fiy, type = "surface")
+```
+
+#Thank you
