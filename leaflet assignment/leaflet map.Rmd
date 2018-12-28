@@ -1,0 +1,66 @@
+---
+title: "Fiji Earthquake Map"
+author: "Gian Arjuna"
+date: "December 24, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+options(warn=-1)
+```
+
+```{r}
+#Interactive Map of Earthquakes location off Fiji
+#Features : 1. Show earthquake location
+#           2. Show Magnitude of the earthquake
+#           3. Navigate with Minimap
+#           4. Calulate distance and area of map
+
+#load library
+suppressPackageStartupMessages(library(leaflet))
+suppressPackageStartupMessages(library(dplyr))
+
+#load earthquakes data
+data(quakes)
+
+#create distinct color icon for each magnitude
+color <- function(quakes) {
+    sapply(quakes$mag, function(mag) {
+        if(mag <= 4) {
+            "blue"
+        } 
+        else if(mag <= 5) {
+            "green"
+        } 
+        else if(mag <= 6) {
+            "orange"
+        } 
+        else{
+            "red"
+        }
+    })
+}
+magnitude <- awesomeIcons(icon = "bolt", library = "fa", markerColor = color(quakes))
+
+
+#create leaflet map
+my_map <- leaflet(data = quakes) %>%                                #create leaflet map widjet with quake dataset
+    addProviderTiles(providers$Esri.NatGeoWorldMap) %>%             #create map tiles from Natgeo template
+    setView((max(quakes[,2])+min(quakes[,2]))/2,                    #center the map view
+            (max(quakes[,1])+min(quakes[,1]))/2,
+             4) %>%
+    addAwesomeMarkers(~long, ~lat,                                  #add earthquake marker
+                      popup = ~as.character(mag), 
+                      label = ~as.character(mag),
+                      icon  = magnitude,
+                      clusterOptions = markerClusterOptions()) %>%
+    addMeasure(position = "topright",                             #add measure widget
+               primaryLengthUnit = "meters",
+               primaryAreaUnit = "sqmeters",
+               activeColor = "#ff3c00",
+               completedColor = "#36ff33") %>%
+    addMiniMap()                                                   #add minimap widget
+my_map
+
+```
