@@ -1,0 +1,40 @@
+---
+title: "Data Summary and Plot using Shiny App"
+author: "Gian Arjuna"
+date: "December 29, 2018"
+output: ioslides_presentation
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Overview
+- In this application we will implement the summary and plot function using Shiny App
+- It provides quick data visualisation for several datasets included in R package
+- It is simple and have an easy to use interface for exploring dataset
+- Dataset that is supported in the apps are women, airquality, mtcars, ChickWeight, CO2, and swiss dataset
+
+## How To Use
+- In the user interface you will see 2 panels, 1 input sidebar panel on the left and 1 output main panel on the right
+- The sidebar panel will include a selection of dataset to load and textboxs to input the X an Y variable that will be plotted
+- First select the dataset from the selection box, then input the X and Y variable name
+    - Should the variable name is invalid/doesn't exist in the dataset, then an error message will be shown on the panel
+    - In this case there will also be no plot shown
+- To run the program click "update" button from the bottom of the sidebar panel
+
+## How To Use
+- Once the "update" button is clicked, then the program will run and provide the corresponding feature
+- First the summary of the data is shown on the top of the main panel
+    - Here we can see various value from the dataset such as mean, median, minimum value, etc
+- Next we can see a table of the chosen dataset, we will only see the first 6 row of the dataset
+- Then lastly, we can see the plot of Y vs X variable chosen at the bottom
+
+## Conclusion
+- The "Data Summary and Plot" app is an easy to use and simple Shiny application to explore a selection of datasets
+- With several intuitive clicks on the user interface you can see the summary, table, and plot of the chosen dataset
+
+# Thank you
+
+
